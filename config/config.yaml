@@ -1,0 +1,78 @@
+project:
+  name: threat-aggregation-lab
+  data_dir: data
+  raw_dir: data/raw
+  normalized_dir: data/normalized
+  processed_dir: data/processed
+  enriched_dir: data/enriched   # ✅ Final enrichment dir
+  merged_dir: data/merged
+  graph_dir: data/graph
+  scored_dir: data/scored
+  correlation_dir: data/correlation
+  storage_dir: data/storage
+  reports_dir: data/reports
+  alerts_dir: data/alerts
+  state_dir: data/.state
+
+http:
+  timeout_seconds: 30
+  user_agent: ${GENERIC_USER_AGENT}
+  retries:
+    total: 3
+    backoff_factor: 0.5
+
+sources:
+  - key: alienvault_otx
+    enabled: true
+    base_url: https://otx.alienvault.com/api/v1
+    auth_type: header
+    auth_env_key: OTX_API_KEY
+    headers:
+      X-OTX-API-KEY: ${OTX_API_KEY}
+    endpoints:
+      - path: /indicators/domain/google.com/url_list
+        params:
+          limit_param: limit
+          default_limit: 50
+
+  - key: virustotal
+    enabled: true
+    base_url: https://www.virustotal.com/api/v3
+    auth_type: header
+    auth_env_key: VT_API_KEY
+    headers:
+      x-apikey: ${VT_API_KEY}
+    endpoints:
+      - path: /domains/google.com
+        params:
+          limit_param: limit
+          default_limit: 40
+
+  - key: shodan
+    enabled: true
+    base_url: https://api.shodan.io
+    auth_type: query
+    auth_env_key: SHODAN_API_KEY
+    endpoints:
+    - path: /shodan/host/8.8.8.8   # instead of /shodan/host/search
+
+
+  - key: greynoise
+    enabled: true
+    base_url: https://api.greynoise.io/v3
+    auth_type: header
+    auth_env_key: GREYNOISE_API_KEY
+    headers:
+      key: ${GREYNOISE_API_KEY}
+    endpoints:
+      - path: /community/8.8.8.8
+
+  - key: ipinfo
+    enabled: true
+    base_url: https://ipinfo.io
+    auth_type: header
+    auth_env_key: IPINFO_API_KEY
+    headers:
+      Authorization: Bearer ${IPINFO_API_KEY}
+    endpoints:
+      - path: /${ip}/json

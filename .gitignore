@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.vscode/
+.env
+data/raw/
+data/processed/
+data/processed_enriched/
+data/merged/
+data/graph/
+data/scored/
+data/reports/
+data/alerts/
+data/.state/
+logs/
+.DS_Store
+Thumbs.db

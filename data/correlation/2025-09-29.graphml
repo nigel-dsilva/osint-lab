@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d3" for="edge" attr.name="relation" attr.type="string" />
+  <key id="d2" for="node" attr.name="source" attr.type="string" />
+  <key id="d1" for="node" attr.name="score" attr.type="long" />
+  <key id="d0" for="node" attr.name="type" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="1.2.3.4">
+      <data key="d0">ip</data>
+      <data key="d1">85</data>
+      <data key="d2">dummy_feed</data>
+    </node>
+    <node id="AS13335">
+      <data key="d0">asn</data>
+    </node>
+    <node id="malicious.com">
+      <data key="d0">domain</data>
+      <data key="d1">65</data>
+      <data key="d2">dummy_feed</data>
+    </node>
+    <node id="AS15169">
+      <data key="d0">asn</data>
+    </node>
+    <node id="abcd1234efgh5678">
+      <data key="d0">hash</data>
+      <data key="d1">40</data>
+      <data key="d2">dummy_feed</data>
+    </node>
+    <node id="AS8075">
+      <data key="d0">asn</data>
+    </node>
+    <edge source="1.2.3.4" target="AS13335">
+      <data key="d3">belongs_to</data>
+    </edge>
+    <edge source="malicious.com" target="AS15169">
+      <data key="d3">belongs_to</data>
+    </edge>
+    <edge source="abcd1234efgh5678" target="AS8075">
+      <data key="d3">belongs_to</data>
+    </edge>
+  </graph>
+</graphml>
