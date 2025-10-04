@@ -93,20 +93,25 @@ data/raw/<source>/
 ---
 
 ## 🔄 Normalization, Enrichment & Merging
+1. **Normalize the data:**
 
-1. **Enrich the normalized data:**
+```bash
+python -m src.normalizers.run_normalise
+```   
+
+2. **Enrich the normalized data:**
 
 ```bash
 python -m src.enrichment.enrich_all
 ```
 
-2. **Merge all sources:**
+3. **Merge all sources:**
 
 ```bash
 python -m src.merger.run_merge
 ```
 
-3. **Score merged results:**
+4. **Score merged results:**
 
 ```bash
 python -m src.scorers.run_score
@@ -203,10 +208,10 @@ python -m src.merger.run_merge
 python -m src.scorers.run_score
 
 # Step 5: Generate graph
-python -m src.graphs.run_graph
+python -m src.correlation.build_graph
 
 # Step 6: Generate report
-python -m src.reports.run_report
+python -m src.reporting.basic_report
 ```
 
 Output locations:
