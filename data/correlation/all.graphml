@@ -25,31 +25,43 @@
       <data key="d1">45</data>
       <data key="d2">virustotal</data>
     </node>
-    <node id="AS8075">
-      <data key="d0">asn</data>
-    </node>
-    <node id="AS32934">
-      <data key="d0">asn</data>
-    </node>
     <node id="AS13335">
       <data key="d0">asn</data>
     </node>
     <node id="AS15169">
       <data key="d0">asn</data>
     </node>
-    <edge source="8.8.8.8" target="AS8075">
+    <node id="AS8075">
+      <data key="d0">asn</data>
+    </node>
+    <node id="AS32934">
+      <data key="d0">asn</data>
+    </node>
+    <edge source="8.8.8.8" target="AS13335">
       <data key="d3">belongs_to</data>
     </edge>
     <edge source="8.8.8.8" target="AS15169">
       <data key="d3">belongs_to</data>
     </edge>
-    <edge source="bad.com" target="AS32934">
+    <edge source="8.8.8.8" target="AS8075">
       <data key="d3">belongs_to</data>
     </edge>
-    <edge source="abcd1234ef567890" target="AS13335">
+    <edge source="8.8.8.8" target="AS32934">
       <data key="d3">belongs_to</data>
     </edge>
-    <edge source="google.com" target="AS32934">
+    <edge source="bad.com" target="AS13335">
+      <data key="d3">belongs_to</data>
+    </edge>
+    <edge source="abcd1234ef567890" target="AS15169">
+      <data key="d3">belongs_to</data>
+    </edge>
+    <edge source="google.com" target="AS15169">
+      <data key="d3">belongs_to</data>
+    </edge>
+    <edge source="google.com" target="AS8075">
+      <data key="d3">belongs_to</data>
+    </edge>
+    <edge source="google.com" target="AS13335">
       <data key="d3">belongs_to</data>
     </edge>
   </graph>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSINT Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+    header {
+      background-color: #0078d7;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .container {
+      padding: 1rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+    }
+    th {
+      background-color: #0078d7;
+      color: white;
+    }
+    .search-bar {
+      margin-bottom: 1rem;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>OSINT Dashboard</h1>
+  </header>
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search data..." oninput="filterData()">
+    </div>
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th>Indicator</th>
+          <th>Type</th>
+          <th>Score</th>
+          <th>Country</th>
+          <th>ASN</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Data will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+  <script>
+    // Fetch data from the backend
+    async function fetchData() {
+      try {
+        const response = await fetch('/data');
+        if (!response.ok) {
+          throw new Error("Failed to fetch data: " + response.statusText);
+        }
+        const data = await response.json();
+        populateTable(data);
+      } catch (error) {
+        console.error(error);
+        alert("Error fetching data. Please ensure the backend is running and the pipeline has been executed.");
+      }
+    }
+
+    // Populate the table with data
+    function populateTable(data) {
+      const tableBody = document.querySelector('#data-table tbody');
+      tableBody.innerHTML = ''; // Clear existing rows
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.indicator || 'N/A'}</td>
+          <td>${item.type || 'N/A'}</td>
+          <td>${item.score || 'N/A'}</td>
+          <td>${item.geo?.country || 'N/A'}</td>
+          <td>${item.geo?.asn || 'N/A'}</td>
+          <td>${item.source || 'N/A'}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Filter data based on search input
+    function filterData() {
+      const searchValue = document.getElementById('search').value.toLowerCase();
+      const rows = document.querySelectorAll('#data-table tbody tr');
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchValue) ? '' : 'none';
+      });
+    }
+
+    // Load data on page load
+    fetchData();
+  </script>
+</body>
+</html>
