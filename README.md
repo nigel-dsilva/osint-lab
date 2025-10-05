@@ -93,20 +93,25 @@ data/raw/<source>/
 ---
 
 ## 🔄 Normalization, Enrichment & Merging
+1. **Normalize the data:**
 
-1. **Enrich the normalized data:**
+```bash
+python -m src.normalizers.virustotal
+```   
+
+2. **Enrich the normalized data:**
 
 ```bash
 python -m src.enrichment.enrich_all
 ```
 
-2. **Merge all sources:**
+3. **Merge all sources:**
 
 ```bash
 python -m src.merger.run_merge
 ```
 
-3. **Score merged results:**
+4. **Score merged results:**
 
 ```bash
 python -m src.scorers.run_score
@@ -148,7 +153,7 @@ Open `.graphml` files with:
 Generate PDF reports with summaries, statistics, and high-level findings:
 
 ```bash
-python -m src.reports.run_report
+python -m src.reports.basic_report
 ```
 
 📂 Reports will be saved in:
@@ -193,20 +198,23 @@ Since free APIs have **strict rate limits**:
 # Step 1: Collect from AlienVault
 python -m src.collectors.run_one alienvault_otx
 
-# Step 2: Enrich data
+# Step 2: Normalize data
+python -m src.normalizers.alienvault_otx
+
+# Step 3: Enrich data
 python -m src.enrichment.enrich_all
 
-# Step 3: Merge all sources
+# Step 4: Merge all sources
 python -m src.merger.run_merge
 
-# Step 4: Score data
+# Step 5: Score data
 python -m src.scorers.run_score
 
-# Step 5: Generate graph
-python -m src.graphs.run_graph
+# Step 6: Generate graph
+python -m src.correlation.build_graph
 
-# Step 6: Generate report
-python -m src.reports.run_report
+# Step 7: Generate report
+python -m src.reporting.basic_report
 ```
 
 Output locations:
